@@ -18,21 +18,23 @@ from psychopy.core import quit
 # ------------------------- I am a split line \(ow <) -------------------------
 # new imports
 
-
 # ------------------------- I am a split line \(ow o) -------------------------
 # ordinary imports
 import os
 import sys
 # ------------------------- I am a split line \(ow o) -------------------------
 
+
 class ImageLib(object):
     ...
+
 
 class SingleClassLib(ImageLib):
     """ImageLib containing images from a single class.
 
     """
-    def __init__(self,image_dir: str,classID:int=None):
+
+    def __init__(self, image_dir: str, classID: int = None):
         """Ini the object
 
         Args:
@@ -40,13 +42,13 @@ class SingleClassLib(ImageLib):
             classID (int, optional): The ID of class of images in. Reads from 
                 `info.txt` if not specified. Defaults to None.
         """
-        self.image_dir=image_dir # Directory of image to display
-        self.files=os.listdir(self.image_dir)
+        self.image_dir = image_dir  # Directory of image to display
+        self.files = os.listdir(self.image_dir)
         if classID:
-            self.classID=int(classID)
+            self.classID = int(classID)
         else:
-            with open(os.path.join(image_dir,'info.txt')) as f:
-                self.classID=int(f.readline().split(',')[1])
+            with open(os.path.join(image_dir, 'info.txt')) as f:
+                self.classID = int(f.readline().split(',')[1])
         self.files.sort()
         for file in self.files:
             if ".jpeg" in file:
@@ -65,10 +67,12 @@ class SingleClassLib(ImageLib):
     def gen_list_of_paths():
         pass
 
-    def getimage(self, index:int):
+    def getimage(self, index: int):
         '''Returns the path to a image file with index given.'''
-        image=os.path.join(self.image_dir,self.files[index]) # compose absolute path
+        image = os.path.join(self.image_dir,
+                             self.files[index])  # compose absolute path
         return image
+
 
 class Trail():
     """A trail that displays image on screen, and send trigger to device.
@@ -99,45 +103,53 @@ class Trail():
     ----------
     start() : starts the trail.
     """
-    def __init__(self,
+
+    def __init__(
+            self,
             window: visual.Window,
             img_lib: ImageLib,
             number: int = 10,
             clock=None,
-            time_display: int or float = 0.5, # in seconds
-            time_blank: int=0,
+            time_display: int or float = 0.5,  # in seconds
+            time_blank: int = 0,
             send_trigger=True,
-            serial_name="/dev/cu.usbserial-DM6G75XB"
-            ):
+            serial_name="/dev/cu.usbserial-DM6G75XB"):
 
-        self.win=window # set the win where the trail is shown
-        self.imglib=img_lib
-        self.number=number # the number of images to be played
-        self.clock=clock
-        self.time_display=time_display # Time of each image to be displayed in ms
-        self.time_blank=time_blank # Time of displaying a blank (usually "+" against background) between different images
-        self.send_trigger=send_trigger
+        self.win = window  # set the win where the trail is shown
+        self.imglib = img_lib
+        self.number = number  # the number of images to be played
+        self.clock = clock
+        self.time_display = time_display  # Time of each image to be displayed in ms
+        self.time_blank = time_blank  # Time of displaying a blank (usually "+" against background) between different images
+        self.send_trigger = send_trigger
         if self.send_trigger:
-            self.triggerin = TriggerIn(serial_name) # serial port sending triggers to device
-            flag = self.triggerin.validate_device() # validates the device
+            self.triggerin = TriggerIn(
+                serial_name)  # serial port sending triggers to device
+            flag = self.triggerin.validate_device()  # validates the device
 
     def start(self):
         """Starts the trail once this method is called.
         """
-        if self.clock==None:
-            self.clock=core.Clock()
-        start_time=self.clock.getTime()
+        if self.clock == None:
+            self.clock = core.Clock()
+        start_time = self.clock.getTime()
         if self.send_trigger:
             # range for idx to traverse, update when non-image file is given
 
             for idx in range(self.number):
                 # display image in display time
-                stim=visual.ImageStim(self.win, image=self.imglib.getimage(idx)) # changes the image to be displayed
+                stim = visual.ImageStim(
+                    self.win, image=self.imglib.getimage(
+                        idx))  # changes the image to be displayed
                 stim.draw()
-                self.triggerin.output_event_data(self.imglib.getid(idx)) # sent classID to device
+                self.triggerin.output_event_data(
+                    self.imglib.getid(idx))  # sent classID to device
                 self.win.flip()
                 # display image between time interval [(display+blank)*i,(display+blank)*i+display)
-                while (self.time_display+self.time_blank)*idx<=self.clock.getTime()<(self.time_display+self.time_blank)*idx+self.time_display:
+                while (self.time_display +
+                       self.time_blank) * idx <= self.clock.getTime(
+                       ) < (self.time_display +
+                            self.time_blank) * idx + self.time_display:
                     ...
                 self.win.flip()
                 # display blank frame in blank time
@@ -149,12 +161,18 @@ class Trail():
             for idx in range(self.number):
                 # display image in display time
                 try:
-                    stim=visual.ImageStim(self.win, image=self.imglib.getimage(idx)) # changes the image to be displayed
+                    stim = visual.ImageStim(
+                        self.win, image=self.imglib.getimage(
+                            idx))  # changes the image to be displayed
                 except OSError():
                     continue
                 stim.draw()
                 self.win.flip()
-                while (self.time_display+self.time_blank)*idx<=self.clock.getTime()<(self.time_display+self.time_blank)*idx+self.time_display: # display image between time interval [(display+blank)*i,(display+blank)*i+display)
+                while (
+                        self.time_display + self.time_blank
+                ) * idx <= self.clock.getTime() < (
+                        self.time_display + self.time_blank
+                ) * idx + self.time_display:  # display image between time interval [(display+blank)*i,(display+blank)*i+display)
                     ...
                 self.win.flip()
                 # display blank frame in blank time
@@ -162,6 +180,7 @@ class Trail():
                 # while (self.time_display+self.time_blank)*idx<=self.clock.getTime()<(self.time_display+self.time_blank)*(idx+1):
                 #     ...
                 # self.win.flip()
+
 
 def main():
     pass
