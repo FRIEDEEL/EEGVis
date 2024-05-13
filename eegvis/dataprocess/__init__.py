@@ -1,0 +1,1 @@
+from eegvis.dataprocess.data_process_class import *
