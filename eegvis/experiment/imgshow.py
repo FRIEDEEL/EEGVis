@@ -6,19 +6,21 @@ from psychopy.preferences import prefs
 from psychopy.core import quit
 # ------------------------- I am a split line \(ow o) -------------------------
 # import modules of neuracle
-if __name__=="__main__":
-    import neuracle_lib
-else:
-    import sys
-    import os
-    sys.path.append(os.getcwd())
-import neuracle_lib
-from neuracle_lib.triggerBox import TriggerIn
-from neuracle_lib.triggerBox import PackageSensorPara
+# if __name__=="__main__":
+#     import neuracle_lib
+# else:
+#     import sys
+#     import os
+#     sys.path.append(os.getcwd())
+# import neuracle_lib
+# from neuracle_lib.triggerBox import TriggerIn
+# from neuracle_lib.triggerBox import PackageSensorPara
+# ------------------------- I am a split line \(ow <) -------------------------
+# new imports
+
+
 # ------------------------- I am a split line \(ow o) -------------------------
 # ordinary imports
-import numpy
-import random
 import os
 import sys
 # ------------------------- I am a split line \(ow o) -------------------------
@@ -29,7 +31,7 @@ class ImageLib(object):
 class SingleClassLib(ImageLib):
     """ImageLib containing images from a single class.
 
-    """    
+    """
     def __init__(self,image_dir: str,classID:int=None):
         """Ini the object
 
@@ -37,7 +39,7 @@ class SingleClassLib(ImageLib):
             image_dir (str): The path that contains multiple images.
             classID (int, optional): The ID of class of images in. Reads from 
                 `info.txt` if not specified. Defaults to None.
-        """        
+        """
         self.image_dir=image_dir # Directory of image to display
         self.files=os.listdir(self.image_dir)
         if classID:
@@ -55,8 +57,8 @@ class SingleClassLib(ImageLib):
                 ...
             else:
                 self.files.remove(file)
-                
-    def getid(self,index:int):
+
+    def getid(self):
         '''Get the ID of class of ImageLib object'''
         return self.classID
 
@@ -96,7 +98,7 @@ class Trail():
     Methods
     ----------
     start() : starts the trail.
-    """        
+    """
     def __init__(self,
             window: visual.Window,
             img_lib: ImageLib,
@@ -107,7 +109,7 @@ class Trail():
             send_trigger=True,
             serial_name="/dev/cu.usbserial-DM6G75XB"
             ):
-    
+
         self.win=window # set the win where the trail is shown
         self.imglib=img_lib
         self.number=number # the number of images to be played
@@ -118,16 +120,16 @@ class Trail():
         if self.send_trigger:
             self.triggerin = TriggerIn(serial_name) # serial port sending triggers to device
             flag = self.triggerin.validate_device() # validates the device
-    
+
     def start(self):
         """Starts the trail once this method is called.
-        """        
+        """
         if self.clock==None:
             self.clock=core.Clock()
         start_time=self.clock.getTime()
         if self.send_trigger:
             # range for idx to traverse, update when non-image file is given
-            
+
             for idx in range(self.number):
                 # display image in display time
                 stim=visual.ImageStim(self.win, image=self.imglib.getimage(idx)) # changes the image to be displayed
@@ -164,7 +166,8 @@ class Trail():
 def main():
     pass
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     main()
 
 # ------------------------- I am a split line \(ow o) -------------------------

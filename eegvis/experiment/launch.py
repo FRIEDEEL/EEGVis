@@ -1,6 +1,7 @@
 # ------------------------- I am a split line \(ow o) -------------------------
-from img_stimuli_lib.imgshow import *
+from eegvis.experiment import *
 # ------------------------- I am a split line \(ow o) -------------------------
+
 import os
 
 # 使用的图片类的父目录路径
@@ -102,5 +103,5 @@ def test_trail():
     with visual.Window(monitor="testMonitor", units="deg",fullscr=True) as win:
         ...
 
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
