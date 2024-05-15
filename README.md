@@ -2,10 +2,25 @@
 
 ## 使用说明
 本项目分为2个部分：
-- **实验部分**，展示一系列的图片并与采集的EEG信号同步。代码位于`/eegvis/experiment`下，主要入口包含于`launch.py`内。
-- **数据处理**，将采集到的`.bdf`格式的数据处理成可以用于训练的`.pth`。代码位于`/eegvis/dataprocess`下，主要入口包含于`process.py`内。
+- **实验部分**，展示一系列的图片并与采集的EEG信号同步。代码位于`/eegvis/experiment`下。
+- **数据处理**，将采集到的`.bdf`格式的数据处理成可以用于训练的`.pth`。代码位于`/eegvis/dataprocess`下。
 
-其中实验部分需要的<u>图像集</u>不在本项目内。
+其中实验部分需要的<u>图像集</u>不在本项目内。请另行下载后，拷贝到本项目目录`./data/experiment_images/`下。或者可以更改`eegvis/experiment/launch.py`中的`IMG_ROOT_DIR`进行自定义。这部分后续版本会写接口的【大概
+
+
+### 运行实验
+安装好`requirements.txt`下所需的环境后，并确保图像集已经被下载到目标文件夹，直接运行：
+```python
+python3 launch_trial.py
+```
+即可。
+### 处理数据
+当前版本(v0.0.2)还未更新此部分。请自行在`eegvis/dataprocess`下挖掘屎山。
+
+### 自定义实验及数据处理
+`eegvis/experiment/launch.py`及`eegvis/dataprocess/process.py`在之前作者进行毕业论文时是作为主函数入口直接运行的。主要逻辑代码被隐藏在它们所在目录中的另一个文件，而这两个文件则是用于调节参数等细节。后续开发可能会将它们合并。
+
+请自行按需更改或者issue我。
 
 ### 实验使用图像集准备
 现在使用的图像集文件来自ImageNet，并且应该是已经准备好的。但如果你想自定义图像集文件，你应该按照下文操作。
