@@ -1,0 +1,9 @@
+matplotlib==3.8.4
+mne==1.7.0
+numpy==1.26.4
+psychopy==2024.1.4
+PyQt6==6.7.0
+PyQt6_sip==13.6.0
+pyserial==3.5
+scipy==1.13.0
+torch==2.3.0
