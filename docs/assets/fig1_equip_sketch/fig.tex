@@ -1,0 +1,39 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage[UTF8]{ctex}
+\begin{document}
+\begin{tikzpicture}
+    \foreach \x in {1,2,...,5}{
+        \foreach \y in {1,2,...,8}{
+            \draw (\x,\y) circle[radius=0.3cm];
+        }
+    }
+
+    % 脑电帽连接部分
+    \foreach \x in {1,2,...,5}{
+        \foreach \y in {6,7,8}{
+            \draw (\x,\y) -- (9,6.5);
+        }
+    }
+    \draw (1,5) -- (9,6.5);
+    \draw (2,5) -- (9,6.5);
+    \draw (3,5) -- (9,6.5);
+
+    \path[draw=black,fill=white] (8.9,6.35) rectangle (9.1,6.65);
+    \draw[double,double distance=0.1cm] (9.1,6.5) -- (12,6.5);
+    \node[above left] (out1) at (12,6.5) {1.接脑电帽输入};
+
+
+    \draw (0,-1) rectangle (6,9);
+    \begin{scope}[shift={(0,-1)}]
+        \draw[double,double distance=0.1cm] (5,0) -- (5,-5) -- (12,-5);
+        \draw[double,double distance=0.1cm] (4,0) -- (4,-5) -- (-2,-5);
+        \draw[double,double distance=0.1cm] (1,0) -- (1,-4) -- (-2,-4);
+
+        \node[above left] (out2) at (12,-5) {4.数据线输出（接电脑2）};
+        \node[above right] (in1) at (-2,-5) {3.串口输入（接电脑1）};
+        \node[above right] (pow1) at (-2,-4) {2.电源线};
+    \end{scope}
+
+\end{tikzpicture}
+\end{document}
