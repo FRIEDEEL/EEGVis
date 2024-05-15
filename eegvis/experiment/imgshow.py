@@ -113,7 +113,7 @@ class Trail():
             img_lib: ImageLib,
             number: int = 10,
             clock=None,
-            time_display: int|float = 0.5,  # in seconds
+            time_display: float = 0.5,  # in seconds
             time_blank: int = 0,
             send_trigger=True,
             serial_name="/dev/cu.usbserial-DM6G75XB"):

@@ -10,13 +10,12 @@ IMG_ROOT_DIR = '../../3_code/DAT_ImageNet_Images/formal_40_class'
 # SEND_TRIGGER=True
 SEND_TRIGGER = False
 
-
 def launch():
     # trail_test_imagenet_10_class_50()
     trail_formal_imagenet_40_class_50()
 
 
-def trail_formal_imagenet_40_class_50(img_dir:str=IMG_ROOT_DIR):
+def trail_formal_imagenet_40_class_50(img_dir: str = IMG_ROOT_DIR):
     rootdir = IMG_ROOT_DIR
     imglibs = []
     paths = os.listdir(rootdir)
@@ -107,6 +106,3 @@ def test_trail():
     with visual.Window(monitor="testMonitor", units="deg",
                        fullscr=True) as win:
         ...
-
-if __name__ == "__main__":
-    main()

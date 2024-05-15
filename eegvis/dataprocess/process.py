@@ -11,8 +11,6 @@ INTERVAL = (20, 120)
 
 
 def process():
-    # test()
-
     process_files_in_dir(read_dir="../data/raw/formal_50",
                          save_dir="../data/processed/6")
     pass
